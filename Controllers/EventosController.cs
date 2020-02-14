@@ -9,6 +9,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
+
+
 namespace GerenciamentoEvento.Controllers {
 
     public class EventosController : Controller {

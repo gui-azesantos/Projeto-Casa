@@ -2,13 +2,36 @@
 @{
     ViewData["Title"] = "Index";
 }
+<script>
+    $(document).ready( function () {
+    $('#evento').DataTable({
+        "info": true,
+        "language":{
+            "lengthMenu" : "Mostrando _MENU_ registros por pagina",
+            "zeroRecords": "Nada encontrado",
+            "info": "Mostrando página _PAGE_ de _PAGES_",
+            "infoEmpty": "Nenhum registro disponível",
+            "search": "Buscar:",
+            "paginate":{
+                "first": "Primeira",
+                "last": "Ultima",
+                "next": "Próxima",
+                "previous": "Anterior"
+            }
+        }
+
+    });
+    } );
+</script>
+
+
     <h2>Lista de Eventos</h2>
 
 <style>
    
 </style>
 
-    <table class="table table-striped table-bordered " >
+    <table id="evento" class="table table-striped table-bordered " >
         <thead   style="font-family:'Alegreya Sans'; background-color:#6E3667; color:white; text-align: center">
             <th>
             <a asp-action="Criar" asp-controller="Eventos" class="btn btn-success">Novo Evento</a> 

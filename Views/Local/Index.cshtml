@@ -2,6 +2,27 @@
 @{
     ViewData["Title"] = "Index";
 }
+<script>
+    $(document).ready( function () {
+    $('#local').DataTable({
+        "info": true,
+        "language":{
+            "lengthMenu" : "Mostrando _MENU_ registros por pagina",
+            "zeroRecords": "Nada encontrado",
+            "info": "Mostrando página _PAGE_ de _PAGES_",
+            "infoEmpty": "Nenhum registro disponível",
+            "search": "Buscar:",
+            "paginate":{
+                "first": "Primeira",
+                "last": "Ultima",
+                "next": "Próxima",
+                "previous": "Anterior"
+            }
+        }
+
+    });
+    } );
+</script>
     <h2>Locais</h2>
  
 

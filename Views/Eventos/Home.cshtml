@@ -21,7 +21,7 @@
       <iframe src=@eventos.CasaDeShow.LinkEndereco width="400" height="300" frameborder="0" style="border:0; float: right" allowfullscreen=""></iframe>
       @* <img class="img-thumbnail" src="https://img.olhardigital.com.br/uploads/acervo_imagens/2018/12/20181218065336.jpg" style="float: right; max-width: 400px;">*@
      <p class="card-text"><strong>Local: </strong>@eventos.CasaDeShow.Nome</p>
-     <p class="card-text"><strong>Quatidade de Ingressos: </strong>@eventos.Capacidade</p>
+     <p class="card-text"><strong>Quantidade de Ingressos: </strong>@eventos.Capacidade</p>
      <p class="card-text"><strong>Data: </strong>@eventos.Data.ToString("dd/MM/yyyy HH:mm")</p>
      <p class="card-text"><strong>Preço: R</strong>@eventos.Preco.ToString("C")
       @if(@eventos.Estilo == "0")
@@ -54,7 +54,7 @@
                                          <p class="card-text"><strong>Estilo: </strong>@genero</p>
                                     }
     
-    <a href="Venda/@eventos.Id" class="btn btn-success">Comprar</a>
+    <a href="Compra/@eventos.Id" class="btn btn-success">Comprar</a>
   </div>
     
   </div>

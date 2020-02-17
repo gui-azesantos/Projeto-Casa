@@ -3,14 +3,16 @@ using System;
 using GerenciamentoEvento.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace GerenciamentoEvento.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200217124116_AddVendasComUsuario")]
+    partial class AddVendasComUsuario
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -86,8 +88,8 @@ namespace GerenciamentoEvento.Migrations
                     b.Property<int>("Capacidade")
                         .HasColumnType("int");
 
-                    b.Property<int?>("CasaDeShowId")
-                        .HasColumnType("int");
+                    b.Property<string>("CasaDeShowNome")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.Property<DateTime>("Data")
                         .HasColumnType("datetime(6)");
@@ -114,8 +116,6 @@ namespace GerenciamentoEvento.Migrations
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CasaDeShowId");
 
                     b.ToTable("Venda");
                 });
@@ -317,13 +317,6 @@ namespace GerenciamentoEvento.Migrations
                 });
 
             modelBuilder.Entity("GerenciamentoEvento.Models.Evento", b =>
-                {
-                    b.HasOne("GerenciamentoEvento.Models.Local", "CasaDeShow")
-                        .WithMany()
-                        .HasForeignKey("CasaDeShowId");
-                });
-
-            modelBuilder.Entity("Gerenciamento_Eventos.Models.Venda", b =>
                 {
                     b.HasOne("GerenciamentoEvento.Models.Local", "CasaDeShow")
                         .WithMany()

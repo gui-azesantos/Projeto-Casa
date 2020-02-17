@@ -844,3 +844,5 @@ C:\Users\GEDO\Desktop\Visual Studio Code\Gerenciamento-Eventos\obj\Debug\netcore
 C:\Users\GEDO\Desktop\Visual Studio Code\Gerenciamento-Eventos\obj\Debug\netcoreapp3.1\GerenciamentoEvento.dll
 C:\Users\GEDO\Desktop\Visual Studio Code\Gerenciamento-Eventos\obj\Debug\netcoreapp3.1\GerenciamentoEvento.pdb
 C:\Users\GEDO\Desktop\Visual Studio Code\Gerenciamento-Eventos\obj\Debug\netcoreapp3.1\Razor\Views\Eventos\Error.cshtml.g.cs
+C:\Users\GEDO\Desktop\Visual Studio Code\Gerenciamento-Eventos\obj\Debug\netcoreapp3.1\Razor\Views\Eventos\Compra.cshtml.g.cs
+C:\Users\GEDO\Desktop\Visual Studio Code\Gerenciamento-Eventos\obj\Debug\netcoreapp3.1\Razor\Views\Eventos\Historico.cshtml.g.cs

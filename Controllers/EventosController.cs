@@ -23,6 +23,7 @@ namespace GerenciamentoEvento.Controllers {
 
         public IActionResult Home () {
             var eventos = database.Evento.Include (e => e.CasaDeShow).Where (p => p.CasaDeShow.Status == true).ToList ();
+
             return View (eventos);
         }
 
@@ -46,7 +47,7 @@ namespace GerenciamentoEvento.Controllers {
             ViewBag.CasaDeShow = database.Local.Where (p => p.Status == true).ToList ();
             var user = await _userManager.GetUserAsync (User);
 
-            //Condição para validar a existência de Casas de show
+            //Condição para validar a existência de Casas de Show
             var local = database.Local.FirstOrDefault (p => p.Status);
             if (local == null) {
                 return View ("Error");
@@ -70,6 +71,7 @@ namespace GerenciamentoEvento.Controllers {
                     eventoview.Id = evento.Id;
                     eventoview.Nome = evento.Nome;
                     eventoview.Capacidade = evento.Capacidade;
+
                     eventoview.Data = evento.Data;
                     eventoview.Preco = evento.Preco;
                     eventoview.CasaDeShowID = evento.CasaDeShow.Id;
@@ -93,6 +95,7 @@ namespace GerenciamentoEvento.Controllers {
                 var evento = database.Evento.First (e => e.Id == _evento.Id);
                 evento.Nome = _evento.Nome;
                 evento.Capacidade = _evento.Capacidade;
+
                 evento.Data = _evento.Data;
                 evento.Preco = _evento.Preco;
                 evento.CasaDeShow = database.Local.First (casadeshow => casadeshow.Id == _evento.CasaDeShowID);
@@ -116,6 +119,7 @@ namespace GerenciamentoEvento.Controllers {
                 Evento evento = new Evento ();
                 evento.Nome = _evento.Nome;
                 evento.Capacidade = _evento.Capacidade;
+
                 evento.Data = _evento.Data;
                 evento.Preco = _evento.Preco;
                 evento.CasaDeShow = database.Local.First (casadeshow => casadeshow.Id == _evento.CasaDeShowID);
@@ -145,6 +149,9 @@ namespace GerenciamentoEvento.Controllers {
                 return Unauthorized ();
             }
         }
+
+        [Authorize]
+        //Sistema de Compra 
         public async Task<IActionResult> Compra (int id) {
             var user = await _userManager.GetUserAsync (User);
 
@@ -152,6 +159,7 @@ namespace GerenciamentoEvento.Controllers {
             if (ModelState.IsValid) {
                 var evento = database.Evento.Include (e => e.CasaDeShow).First (e => e.Id == id);
                 VendaDTO compra = new VendaDTO ();
+                compra.Id = evento.Id;
                 compra.Nome = evento.Nome;
                 compra.Capacidade = evento.Capacidade;
                 compra.Data = evento.Data;
@@ -159,22 +167,23 @@ namespace GerenciamentoEvento.Controllers {
                 compra.CasaDeShowID = evento.CasaDeShow.Id;
                 compra.Estilo = evento.Estilo;
                 compra.Imagem = evento.Imagem;
-                compra.Qtd = compra.Qtd;
-                compra.Usuario = user.NormalizedUserName;
+
                 ViewBag.CasaDeShow = database.Local.Where (p => p.Status == true).ToList ();
                 return View (compra);
             } else {
                 ViewBag.CasaDeShow = database.Local.ToList ();
-                return View ("Editar");
+                return View ();
             }
 
         }
 
-        public async Task<IActionResult> ConfirmarCompra (VendaDTO _compra) {
+        [Authorize]
+        public async Task<IActionResult> ConfirmarCompra (VendaDTO _compra, Evento _evento) {
             var user = await _userManager.GetUserAsync (User);
 
             if (ModelState.IsValid) {
                 Venda venda = new Venda ();
+                var evento = database.Evento.First (e => e.Id == _evento.Id);
                 venda.Nome = _compra.Nome;
                 venda.Capacidade = _compra.Capacidade;
                 venda.Data = _compra.Data;
@@ -182,25 +191,36 @@ namespace GerenciamentoEvento.Controllers {
                 venda.CasaDeShow = database.Local.First (casadeshow => casadeshow.Id == _compra.CasaDeShowID);
                 venda.Estilo = _compra.Estilo;
                 venda.Imagem = _compra.Imagem;
+                evento.Capacidade = _evento.Capacidade;
                 venda.Qtd = _compra.Qtd;
                 venda.Usuario = user.NormalizedUserName;
                 database.Venda.Add (venda);
+
+                //Calculo da compra de ingressos 
+                if (venda.Qtd > 0 && venda.Qtd <= venda.Capacidade) {
+                    venda.Total = venda.Preco * venda.Qtd;
+                    evento.Capacidade = (venda.Capacidade - venda.Qtd);
+                    database.SaveChanges ();
+                }
+                //Salvando no banco
+                database.Evento.Update (evento);
                 database.SaveChanges ();
+
                 ViewBag.CasaDeShow = database.Local.ToList ();
                 return RedirectToAction ("Home", "Eventos");
-
             } else {
                 ViewBag.CasaDeShow = database.Local.Where (p => p.Status == true).ToList ();
                 return View ("Home");
             }
-
         }
+
+        [Authorize]
         public async Task<IActionResult> Historico (Venda _compra) {
             var user = await _userManager.GetUserAsync (User);
             var eventos = database.Venda.ToList ();
             ViewBag.CasaDeShow = database.Local.ToList ();
             ViewBag.User = user.NormalizedUserName;
-            
+
             return View (eventos);
 
         }

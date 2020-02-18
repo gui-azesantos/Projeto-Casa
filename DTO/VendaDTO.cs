@@ -1,3 +1,5 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace GerenciamentoEvento.DTO {
     public class VendaDTO {
         public int Id { get; set; }
@@ -19,6 +21,10 @@ namespace GerenciamentoEvento.DTO {
 
         public int Qtd { get; set; }
 
+       
         public string Usuario { get; set; }
+
+        public int Total { get; set; }
+
     }
 }

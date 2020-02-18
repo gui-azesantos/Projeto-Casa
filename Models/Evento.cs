@@ -16,6 +16,8 @@ namespace GerenciamentoEvento.Models {
         public string Estilo { get; set; }
 
         public string Imagem { get; set; }
+
         public bool Status { get; set; }
+
     }
 }

@@ -846,3 +846,6 @@ C:\Users\GEDO\Desktop\Visual Studio Code\Gerenciamento-Eventos\obj\Debug\netcore
 C:\Users\GEDO\Desktop\Visual Studio Code\Gerenciamento-Eventos\obj\Debug\netcoreapp3.1\Razor\Views\Eventos\Error.cshtml.g.cs
 C:\Users\GEDO\Desktop\Visual Studio Code\Gerenciamento-Eventos\obj\Debug\netcoreapp3.1\Razor\Views\Eventos\Compra.cshtml.g.cs
 C:\Users\GEDO\Desktop\Visual Studio Code\Gerenciamento-Eventos\obj\Debug\netcoreapp3.1\Razor\Views\Eventos\Historico.cshtml.g.cs
+C:\Users\GEDO\Desktop\Visual Studio Code\Gerenciamento-Eventos\obj\Debug\netcoreapp3.1\Razor\Areas\Identity\Pages\Account\Manage\_Layout.cshtml.g.cs
+C:\Users\GEDO\Desktop\Visual Studio Code\Gerenciamento-Eventos\obj\Debug\netcoreapp3.1\Razor\Areas\Identity\Pages\Account\Manage\_ManageNav.cshtml.g.cs
+C:\Users\GEDO\Desktop\Visual Studio Code\Gerenciamento-Eventos\obj\Debug\netcoreapp3.1\Razor\Areas\Identity\Pages\Account\Manage\_ViewImports.cshtml.g.cs

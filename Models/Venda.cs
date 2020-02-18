@@ -22,5 +22,9 @@ namespace GerenciamentoEvento.Models {
         public int Qtd { get; set; }
 
         public string Usuario { get; set; }
+
+        public double Total{ get; set; }
+
+      
     }
 }

@@ -30,5 +30,7 @@ namespace GerenciamentoEvento.DTO
          public string Imagem { get; set; }
 
          public bool Status { get; set; }
+
+         
     }
 }

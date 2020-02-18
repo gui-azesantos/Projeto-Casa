@@ -3,7 +3,7 @@
 @inject UserManager<IdentityUser> UserManager
 @model IEnumerable<GerenciamentoEvento.Models.Venda>
 
-<h2>Histórico de Vendas</h2>
+<h2>Histórico de Compras</h2>
 
 <script>
     $(document).ready( function () {
@@ -54,6 +54,9 @@
             <th>
              Gênero
             </th>
+            <th>
+             Total
+            </th>
             </thead>
 
     
@@ -77,7 +80,7 @@
             @eventos.Data.ToString("dd/MM/yyyy HH:mm") 
         </td>
          <td>
-            @eventos.Preco
+            @eventos.Preco.ToString("C")
         </td>
         <td>
             @eventos.CasaDeShow.Nome
@@ -106,7 +109,9 @@
 
 
         </td>
-       
+        <td>
+            @eventos.Total.ToString("C")
+        </td>
        </tr>
        }
     }

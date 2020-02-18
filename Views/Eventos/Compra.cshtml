@@ -1,9 +1,21 @@
 @model GerenciamentoEvento.DTO.VendaDTO
 
+
+<script>
+function calcular() {
+  var n1 = parseInt(document.getElementById('n1').value, 10);
+  var n2 = parseInt(document.getElementById('n2').value, 10);
+  document.getElementById('resultado').innerHTML = n1 * n2;
+}
+</script>
+
 <h2>Confirmar Compra</h2>
 
 <form class="form-horizontal" asp-controler="Eventos" asp-action="ConfirmarCompra" method="POST">
 
+  <div>
+  <input type="hidden" class="form-control" asp-for="Id">
+ </div>
 
   <div>
   <input type="hidden" class="form-control" asp-for="Imagem">
@@ -11,16 +23,11 @@
   </div>
 
 <div>
-<img class="img-thumbnail" style="max-width: 300px" src="@Html.DisplayFor(model => model.Imagem)" >
+<img class="img-thumbnail" style="width: 500;" src="@Html.DisplayFor(model => model.Imagem)" >
 </div>
     <label asp-for="Nome" class="control-label">Nome</label>
     <input type="text" class="form-control" asp-for="Nome" readonly >
     <span asp-validation-for="Nome"></span>
-  <div>
-    <label asp-for="Capacidade" class="control-label">Quantidade de ingressos dispóniveis</label>
-    <input type="number" class="form-control" asp-for="Capacidade" readonly >
-    <span asp-validation-for="Capacidade"></span>
-</div>
 
 <div>
     <label asp-for="Data" class="control-label"></label>
@@ -29,8 +36,8 @@
 </div>
 
 <div>
-<label asp-for="Preco" class="control-label">Preço</label>
-<input type="number" class="form-control" asp-for="Preco" readonly >
+<label asp-for="Preco"  class="control-label">Preço</label>
+<input type="number"  id= "n1" class="form-control" asp-for="Preco" readonly >
 <span asp-validation-for="Preco"></span>
 </div>
 
@@ -39,6 +46,8 @@
     <select class="form-control" asp-for="CasaDeShowID" asp-items='@(new SelectList(@ViewBag.CasaDeShow,"Id","Nome"))' readonly ></select>
     <span asp-validation-for="CasaDeShowID"></span>
     </div>
+
+
 
 <div>
   <label asp-for="Estilo" class="control-label">Estilo</label>
@@ -63,14 +72,27 @@
 </div>
 
 <div>
-    <label asp-for="Qtd" class="control-label">Quantidade de ingressos</label>
-    <input type="number" class="form-control" asp-for="Qtd">
-    <span asp-validation-for="Qtd"></span>
+    <label asp-for="Capacidade" class="control-label">Quantidade de ingressos dispóniveis</label>
+    <input type="number"  class="form-control" asp-for="Capacidade" readonly >
+    <span asp-validation-for="Capacidade"></span>
 </div>
 
+<div>
+    <label asp-for="Qtd" class="control-label">Quantidade de ingressos</label>
+    <input type="number"  id="n2"  onblur="calcular()" class="form-control" asp-for="Qtd"  min="1" max="@Model.Capacidade">
+    <span asp-validation-for="Qtd"></span>
+</div>
+<div>
+    <label class="control-label">Total</label>
+    <div id="resultado">R$ </div> 
+</div>
 
-    <div class="form-group"></div>
-      <button class= "btn btn-success" type="submit"> Salvar</button>
+<div class="form-group"></div>
+      <button class= "btn btn-success" type="submit"> Confirmar Compra</button>
     </div>
+
+
+
+
 
 </form>

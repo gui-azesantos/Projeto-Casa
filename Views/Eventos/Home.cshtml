@@ -10,7 +10,7 @@
 </style>
 
  @foreach(var eventos in Model)
-    {   @if(eventos.Status == true){
+    {   @if(eventos.Status){
       
 <div class="card text-white " style="border-color:#6E3667; border-width: 20px;  font-size:25px">
   <img class="card-img" src=@eventos.Imagem alt="Imagem do card">
@@ -53,8 +53,11 @@
                                         string genero = "Outro";
                                          <p class="card-text"><strong>Estilo: </strong>@genero</p>
                                     }
-    
-    <a href="Compra/@eventos.Id" class="btn btn-success">Comprar</a>
+   @if(eventos.Capacidade > 0){
+    <a href="Compra/@eventos.Id" class="btn btn-success">Comprar</a>}
+    else{
+      <a href="" class="btn btn-danger">Esgotado</a>
+    }
   </div>
     
   </div>

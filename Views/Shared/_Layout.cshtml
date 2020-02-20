@@ -68,7 +68,7 @@ body{
                         </li>
                        
                         @* Validação para administrador *@
-                        @if( SignInManager.IsSignedIn(User) && User.FindFirst("NomeCompleto").Value == "AdminCrud"){
+                        @if( SignInManager.IsSignedIn(User) && User.Identity.Name == "admin@gmail.com"){
                              <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Eventos" asp-action="Index">Eventos</a>
                         </li>

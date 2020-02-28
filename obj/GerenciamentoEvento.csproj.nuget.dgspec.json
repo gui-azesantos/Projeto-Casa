@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\GEDO\\Desktop\\New folder\\Gerenciamento-Eventos\\GerenciamentoEvento.csproj": {}
+    "C:\\Users\\GEDO\\Desktop\\Visual Studio Code\\Projeto-Casa\\GerenciamentoEvento.csproj": {}
   },
   "projects": {
-    "C:\\Users\\GEDO\\Desktop\\New folder\\Gerenciamento-Eventos\\GerenciamentoEvento.csproj": {
+    "C:\\Users\\GEDO\\Desktop\\Visual Studio Code\\Projeto-Casa\\GerenciamentoEvento.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\GEDO\\Desktop\\New folder\\Gerenciamento-Eventos\\GerenciamentoEvento.csproj",
+        "projectUniqueName": "C:\\Users\\GEDO\\Desktop\\Visual Studio Code\\Projeto-Casa\\GerenciamentoEvento.csproj",
         "projectName": "GerenciamentoEvento",
-        "projectPath": "C:\\Users\\GEDO\\Desktop\\New folder\\Gerenciamento-Eventos\\GerenciamentoEvento.csproj",
+        "projectPath": "C:\\Users\\GEDO\\Desktop\\Visual Studio Code\\Projeto-Casa\\GerenciamentoEvento.csproj",
         "packagesPath": "C:\\Users\\GEDO\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\GEDO\\Desktop\\New folder\\Gerenciamento-Eventos\\obj\\",
+        "outputPath": "C:\\Users\\GEDO\\Desktop\\Visual Studio Code\\Projeto-Casa\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\GEDO\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -62,6 +62,10 @@
               "target": "Package",
               "version": "[3.1.1, )"
             },
+            "Microsoft.IdentityModel.Tokens": {
+              "target": "Package",
+              "version": "[5.6.0, )"
+            },
             "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
               "target": "Package",
               "version": "[3.1.1, )"
@@ -69,6 +73,14 @@
             "Pomelo.EntityFrameworkCore.MySql": {
               "target": "Package",
               "version": "[3.1.1, )"
+            },
+            "Swashbuckle.AspNetCore": {
+              "target": "Package",
+              "version": "[5.0.0, )"
+            },
+            "System.IdentityModel.Tokens.Jwt": {
+              "target": "Package",
+              "version": "[5.6.0, )"
             }
           },
           "imports": [

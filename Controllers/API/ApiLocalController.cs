@@ -53,6 +53,34 @@ namespace Projeto_Casa.Controllers.API {
             return new ObjectResult (new { msg = "Local criado com sucesso!" });
         }
 
+        [HttpPatch]
+        public IActionResult Patch ([FromBody] Local local) {
+            if (local.Id > 0) {
+
+                try {
+                    var ltemp = database.Local.First (p => p.Id == local.Id);
+                    if (ltemp != null) {
+
+                        //Editar 
+                        ltemp.Nome = local.Nome != null ? local.Nome : local.Nome;
+                        ltemp.Endereco = local.Endereco != null ? local.Endereco : local.Endereco;
+                        ltemp.LinkEndereco = ltemp.LinkEndereco != null ? ltemp.LinkEndereco : ltemp.LinkEndereco;
+                        database.SaveChanges ();
+                        return Ok ();
+                    }
+                } catch (System.Exception) {
+                    Response.StatusCode = 404;
+                    return new ObjectResult (new { msg = "Evento não encontrado" });
+                }
+
+            } else {
+                Response.StatusCode = 404;
+                return new ObjectResult (new { msg = "Id inválido" });
+            }
+            Response.StatusCode = 404;
+            return new ObjectResult (new { msg = "Id inválido" });
+        }
+
         [HttpDelete ("{id}")]
         public IActionResult Delete (int id) {
             try {

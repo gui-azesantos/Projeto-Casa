@@ -61,21 +61,6 @@ namespace ApiRest.Controllers {
             Response.StatusCode = 201;
             return new ObjectResult (new { msg = "Evento criado com sucesso!" });
         }
-
-        [HttpDelete ("{id}")]
-        public IActionResult Delete (int id) {
-            try {
-                var evento = database.Evento.First (p => p.Id == id);
-                evento.Status = false;
-                database.SaveChanges ();
-                Response.StatusCode = 201;
-                return new ObjectResult (new { msg = "Evento excluido!" });
-            } catch (Exception) {
-                Response.StatusCode = 404;
-                return new ObjectResult (new { msg = "Id inválido" });
-            }
-        }
-
         [HttpPatch]
         public IActionResult Patch ([FromBody] Evento evento) {
             if (evento.Id > 0) {
@@ -107,6 +92,21 @@ namespace ApiRest.Controllers {
             Response.StatusCode = 404;
             return new ObjectResult (new { msg = "Id inválido" });
         }
+
+        [HttpDelete ("{id}")]
+        public IActionResult Delete (int id) {
+            try {
+                var evento = database.Evento.First (p => p.Id == id);
+                evento.Status = false;
+                database.SaveChanges ();
+                Response.StatusCode = 201;
+                return new ObjectResult (new { msg = "Evento excluido!" });
+            } catch (Exception) {
+                Response.StatusCode = 404;
+                return new ObjectResult (new { msg = "Id inválido" });
+            }
+        }
+
 
         public class EventoTemp {
             public int Id { get; set; }

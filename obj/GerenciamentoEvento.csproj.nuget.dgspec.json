@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\GEDO\\Desktop\\Visual Studio Code\\Projeto-Casa\\GerenciamentoEvento.csproj": {}
+    "c:\\Users\\GEDO\\Desktop\\Visual Studio Code\\Projeto-Casa\\GerenciamentoEvento.csproj": {}
   },
   "projects": {
-    "C:\\Users\\GEDO\\Desktop\\Visual Studio Code\\Projeto-Casa\\GerenciamentoEvento.csproj": {
+    "c:\\Users\\GEDO\\Desktop\\Visual Studio Code\\Projeto-Casa\\GerenciamentoEvento.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\GEDO\\Desktop\\Visual Studio Code\\Projeto-Casa\\GerenciamentoEvento.csproj",
+        "projectUniqueName": "c:\\Users\\GEDO\\Desktop\\Visual Studio Code\\Projeto-Casa\\GerenciamentoEvento.csproj",
         "projectName": "GerenciamentoEvento",
-        "projectPath": "C:\\Users\\GEDO\\Desktop\\Visual Studio Code\\Projeto-Casa\\GerenciamentoEvento.csproj",
+        "projectPath": "c:\\Users\\GEDO\\Desktop\\Visual Studio Code\\Projeto-Casa\\GerenciamentoEvento.csproj",
         "packagesPath": "C:\\Users\\GEDO\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\GEDO\\Desktop\\Visual Studio Code\\Projeto-Casa\\obj\\",
+        "outputPath": "c:\\Users\\GEDO\\Desktop\\Visual Studio Code\\Projeto-Casa\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\GEDO\\AppData\\Roaming\\NuGet\\NuGet.Config"

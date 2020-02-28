@@ -33,7 +33,7 @@ namespace GerenciamentoEvento {
 
             //Swagger
             services.AddSwaggerGen (config => {
-                config.SwaggerDoc ("v1", new Microsoft.OpenApi.Models.OpenApiInfo { Title = "API de Produtos", Version = "v1" });
+                config.SwaggerDoc ("v1", new Microsoft.OpenApi.Models.OpenApiInfo { Title = "API Eventos.com", Version = "v1" });
             });
         }
 

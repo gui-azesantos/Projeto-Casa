@@ -1,5 +1,6 @@
-using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 using GerenciamentoEvento.Data;
 using GerenciamentoEvento.DTO;
@@ -8,8 +9,10 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 
-namespace GerenciamentoEvento.Controllers {
+namespace GerenciamentoEvento.Controllers
+{
 
     public class EventosController : Controller {
         private readonly ApplicationDbContext database;
@@ -223,6 +226,14 @@ namespace GerenciamentoEvento.Controllers {
 
             return View (eventos);
 
+        }
+        //Api
+        [HttpGet]
+        public async Task<IActionResult> GetEventos () {
+            var httpClient = new HttpClient ();
+            var json = await httpClient.GetStringAsync ("https://localhost:5001/api/v1/eventos/");
+            var eventosList = JsonConvert.DeserializeObject<List<Evento>> (json);
+            return View (eventosList);
         }
 
     }

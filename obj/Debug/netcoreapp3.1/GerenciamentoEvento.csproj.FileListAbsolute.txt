@@ -1207,3 +1207,5 @@ C:\Users\GEDO\Desktop\Visual Studio Code\Projeto-Casa\obj\Debug\netcoreapp3.1\Ge
 C:\Users\GEDO\Desktop\Visual Studio Code\Projeto-Casa\obj\Debug\netcoreapp3.1\GerenciamentoEvento.csproj.CopyComplete
 C:\Users\GEDO\Desktop\Visual Studio Code\Projeto-Casa\obj\Debug\netcoreapp3.1\GerenciamentoEvento.dll
 C:\Users\GEDO\Desktop\Visual Studio Code\Projeto-Casa\obj\Debug\netcoreapp3.1\GerenciamentoEvento.pdb
+C:\Users\GEDO\Desktop\Visual Studio Code\Projeto-Casa\obj\Debug\netcoreapp3.1\Razor\Views\Local\GetLocal.cshtml.g.cs
+C:\Users\GEDO\Desktop\Visual Studio Code\Projeto-Casa\obj\Debug\netcoreapp3.1\Razor\Views\Eventos\GetEventos.cshtml.g.cs

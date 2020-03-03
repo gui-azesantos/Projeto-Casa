@@ -1,6 +1,7 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Net.Http;
 using GerenciamentoEvento.Data;
 using GerenciamentoEvento.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -111,4 +112,5 @@ namespace Projeto_Casa.Controllers.API {
             public bool Status { get; set; }
         }
     }
+
 }

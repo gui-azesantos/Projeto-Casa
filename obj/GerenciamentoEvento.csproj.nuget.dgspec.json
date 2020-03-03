@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "c:\\Users\\GEDO\\Desktop\\Visual Studio Code\\Projeto-Casa\\GerenciamentoEvento.csproj": {}
+    "C:\\Users\\GEDO\\Desktop\\Visual Studio Code\\Projeto-Casa\\GerenciamentoEvento.csproj": {}
   },
   "projects": {
-    "c:\\Users\\GEDO\\Desktop\\Visual Studio Code\\Projeto-Casa\\GerenciamentoEvento.csproj": {
+    "C:\\Users\\GEDO\\Desktop\\Visual Studio Code\\Projeto-Casa\\GerenciamentoEvento.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\Users\\GEDO\\Desktop\\Visual Studio Code\\Projeto-Casa\\GerenciamentoEvento.csproj",
+        "projectUniqueName": "C:\\Users\\GEDO\\Desktop\\Visual Studio Code\\Projeto-Casa\\GerenciamentoEvento.csproj",
         "projectName": "GerenciamentoEvento",
-        "projectPath": "c:\\Users\\GEDO\\Desktop\\Visual Studio Code\\Projeto-Casa\\GerenciamentoEvento.csproj",
+        "projectPath": "C:\\Users\\GEDO\\Desktop\\Visual Studio Code\\Projeto-Casa\\GerenciamentoEvento.csproj",
         "packagesPath": "C:\\Users\\GEDO\\.nuget\\packages\\",
-        "outputPath": "c:\\Users\\GEDO\\Desktop\\Visual Studio Code\\Projeto-Casa\\obj\\",
+        "outputPath": "C:\\Users\\GEDO\\Desktop\\Visual Studio Code\\Projeto-Casa\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\GEDO\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -69,6 +69,10 @@
             "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
               "target": "Package",
               "version": "[3.1.1, )"
+            },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[12.0.3, )"
             },
             "Pomelo.EntityFrameworkCore.MySql": {
               "target": "Package",

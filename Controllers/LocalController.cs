@@ -1,5 +1,6 @@
-using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 using GerenciamentoEvento.Data;
 using GerenciamentoEvento.DTO;
@@ -7,10 +8,11 @@ using GerenciamentoEvento.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 
-namespace GerenciamentoEvento.Controllers {
-  [Authorize]
+namespace GerenciamentoEvento.Controllers
+{
+    [Authorize]
   public class LocalController : Controller {
     private readonly ApplicationDbContext database;
     private readonly UserManager<IdentityUser> _userManager;
@@ -107,6 +109,14 @@ namespace GerenciamentoEvento.Controllers {
         return Unauthorized ();
       }
 
+    }
+    //API
+    [HttpGet]
+    public async Task<IActionResult> GetLocal () {
+      var httpClient = new HttpClient ();
+      var json = await httpClient.GetStringAsync ("https://localhost:5001/api/v1/local/");
+      var locaisList = JsonConvert.DeserializeObject<List<Local>>(json);
+      return View (locaisList);
     }
   }
 }

@@ -20,8 +20,66 @@ namespace ApiRest.Controllers {
 
         [HttpGet]
         public IActionResult Get () {
-            var eventos = database.Evento.Include (e => e.CasaDeShow).Where (p => p.CasaDeShow.Status == true).ToList ();
+            var eventos = database.Evento.Include (e => e.CasaDeShow).Where (p => p.CasaDeShow.Status == true).Where (p => p.Status == true).Where (p => p.CasaDeShow.Status == true).ToList ();
             return Ok (eventos); //Status code = 200 && Dados 
+        }
+
+        [HttpGet ("ListarCapacidadeAsc")]
+        public IActionResult GetAsc () {
+            var local = database.Evento.Include (e => e.CasaDeShow).Where (p => p.CasaDeShow.Status == true).Where (p => p.Status == true).ToList ().OrderBy (p => p.Capacidade);
+            return Ok (local);
+            //Status code = 200 && Dados 
+
+        }
+
+        [HttpGet ("ListarCapacidadeDesc")]
+        public IActionResult GetDesc () {
+            var local = database.Evento.Include (e => e.CasaDeShow).Where (p => p.CasaDeShow.Status == true).Where (p => p.Status == true).ToList ().OrderByDescending (p => p.Capacidade);
+            return Ok (local);
+            //Status code = 200 && Dados 
+
+        }
+
+        [HttpGet ("listarDataAsc")]
+        public IActionResult GetDataAsc () {
+            var local = database.Evento.Include (e => e.CasaDeShow).Where (p => p.CasaDeShow.Status == true).Where (p => p.Status == true).ToList ().OrderBy (p => p.Data);
+            return Ok (local);
+            //Status code = 200 && Dados 
+
+        }
+
+        [HttpGet ("listarDataDesc")]
+        public IActionResult GetDataDesc () {
+            var local = database.Evento.Include (e => e.CasaDeShow).Where (p => p.CasaDeShow.Status == true).Where (p => p.Status == true).ToList ().OrderByDescending (p => p.Data);
+            return Ok (local);
+            //Status code = 200 && Dados 
+        }
+
+        [HttpGet ("listarPrecoAsc")]
+        public IActionResult GetPrecoAsc () {
+            var local = database.Evento.Include (e => e.CasaDeShow).Where (p => p.CasaDeShow.Status == true).Where (p => p.Status == true).ToList ().OrderBy (p => p.Preco);
+            return Ok (local);
+            //Status code = 200 && Dados 
+
+        }
+
+        [HttpGet ("listarPrecoDesc")]
+        public IActionResult GetPrecoDesc () {
+            var local = database.Evento.Include (e => e.CasaDeShow).Where (p => p.CasaDeShow.Status == true).Where (p => p.Status == true).ToList ().OrderByDescending (p => p.Preco);
+            return Ok (local);
+            //Status code = 200 && Dados 
+        }
+
+        [HttpGet ("listarNomeAsc")]
+        public IActionResult GetNomeAsc () {
+            var local = database.Evento.Include (e => e.CasaDeShow).Where (p => p.CasaDeShow.Status == true).Where (p => p.Status == true).ToList ().OrderBy (p => p.Nome);
+            return Ok (local);
+        }
+
+        [HttpGet ("listarNomeDesc")]
+        public IActionResult GetNomeDesc () {
+            var local = database.Evento.Include (e => e.CasaDeShow).Where (p => p.CasaDeShow.Status == true).Where (p => p.Status == true).ToList ().OrderByDescending (p => p.Nome);
+            return Ok (local);
         }
 
         [HttpGet ("{id}")]
@@ -35,6 +93,24 @@ namespace ApiRest.Controllers {
                 return new ObjectResult (new { msg = "Id inválido" });
             }
 
+        }
+
+        [HttpGet ("vendas")]
+        public IActionResult GetUser () {
+            var local = database.Venda.Include (e => e.CasaDeShow).ToList ().OrderByDescending (p => p.Nome);
+            return Ok (local);
+        }
+
+        [HttpGet ("vendas/" + "{id}")]
+        public IActionResult GetUser (int id) {
+            try {
+                Venda venda = database.Venda.Include (e => e.CasaDeShow).First (p => p.Id == id);
+                return Ok (venda);
+            } catch (Exception) {
+
+                Response.StatusCode = 404;
+                return new ObjectResult (new { msg = "Id inválido" });
+            }
         }
 
         [HttpPost]
@@ -61,6 +137,7 @@ namespace ApiRest.Controllers {
             Response.StatusCode = 201;
             return new ObjectResult (new { msg = "Evento criado com sucesso!" });
         }
+
         [HttpPatch]
         public IActionResult Patch ([FromBody] Evento evento) {
             if (evento.Id > 0) {
@@ -107,7 +184,6 @@ namespace ApiRest.Controllers {
             }
         }
 
-
         public class EventoTemp {
             public int Id { get; set; }
 
@@ -128,7 +204,7 @@ namespace ApiRest.Controllers {
             [Required]
             public int CasaDeShowID { get; set; }
 
-            [Range (1, 8, ErrorMessage = "Estilo inválido.")]
+            [Range (0, 8, ErrorMessage = "Estilo inválido.")]
             public int Estilo { get; set; }
 
             [Required (ErrorMessage = "A URL da imagem é obrigatória.")]

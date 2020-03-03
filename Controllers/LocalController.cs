@@ -115,8 +115,8 @@ namespace GerenciamentoEvento.Controllers
     public async Task<IActionResult> GetLocal () {
       var httpClient = new HttpClient ();
       var json = await httpClient.GetStringAsync ("https://localhost:5001/api/v1/local/");
-      var locaisList = JsonConvert.DeserializeObject<List<Local>>(json);
-      return View (locaisList);
+      var locaisList =  JsonConvert.DeserializeObject<List<Local>>(json);
+      return  View (locaisList);
     }
   }
 }

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Net.Http;
@@ -25,8 +26,24 @@ namespace Projeto_Casa.Controllers.API {
             //Status code = 200 && Dados 
         }
 
+        [HttpGet ("asc")]
+        public IActionResult GetAsc () {
+            var local = database.Local.Where (p => p.Status == true).ToList ().OrderBy (p => p.Nome);
+            return Ok (local);
+            //Status code = 200 && Dados 
+
+        }
+
+        [HttpGet ("desc")]
+        public IActionResult GetDesc () {
+            var local = database.Local.Where (p => p.Status == true).ToList ().OrderByDescending (p => p.Nome);
+            return Ok (local);
+            //Status code = 200 && Dados 
+
+        }
+
         [HttpGet ("{id}")]
-        public IActionResult Get (int id) {
+        public IActionResult GetId (int id) {
             try {
                 var local = database.Local.Where (l => l.Status == true).First (l => l.Id == id);
                 return Ok (local);
@@ -34,6 +51,20 @@ namespace Projeto_Casa.Controllers.API {
 
                 Response.StatusCode = 404;
                 return new ObjectResult (new { msg = "Id inválido" });
+            }
+
+        }
+
+        [HttpGet ("nome/" + "{nome}")]
+        public IActionResult GetNome (string nome) {
+            try {
+
+                var local = database.Local.Where (l => l.Status == true).First (l => l.Nome == nome);
+                return Ok (local);
+            } catch (Exception) {
+
+                Response.StatusCode = 404;
+                return new ObjectResult (new { msg = "Nome inválido" });
             }
 
         }
@@ -54,8 +85,8 @@ namespace Projeto_Casa.Controllers.API {
             return new ObjectResult (new { msg = "Local criado com sucesso!" });
         }
 
-        [HttpPatch]
-        public IActionResult Patch ([FromBody] Local local) {
+        [HttpPut]
+        public IActionResult Put ([FromBody] Local local) {
             if (local.Id > 0) {
 
                 try {

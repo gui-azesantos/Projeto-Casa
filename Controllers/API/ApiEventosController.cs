@@ -156,7 +156,11 @@ namespace ApiRest.Controllers {
                         } else {
                             evento.CasaDeShow = evento.CasaDeShow;
                         }
-                        evento.Estilo = ptemp.Estilo != null ? ptemp.Estilo : evento.Estilo;
+                       if(evento.Estilo == ptemp.Estilo.ToString()){
+                           evento.Estilo = evento.Estilo;
+                       }else{
+                           evento.Estilo = ptemp.Estilo.ToString();
+                       }
                         evento.Imagem = ptemp.Imagem != null ? ptemp.Imagem : evento.Imagem;
                         database.SaveChanges ();
                         return Ok ();
@@ -210,7 +214,7 @@ namespace ApiRest.Controllers {
             public int CasaDeShowID { get; set; }
 
             [Range (0, 8, ErrorMessage = "Estilo inválido.")]
-            public string Estilo { get; set; }
+            public int Estilo { get; set; }
 
             [Required (ErrorMessage = "A URL da imagem é obrigatória.")]
             [MinLength (2, ErrorMessage = "Url curta demais.")]

@@ -20,8 +20,21 @@ namespace ApiRest.Controllers {
 
         [HttpGet]
         public IActionResult Get () {
-            var user = database.Users.ToList ();
+            var user = database.Users.Select (p => p.UserName).ToList ();
             return Ok (user); //Status code = 200 && Dados 
         }
+
+        [HttpGet ("{id}")]
+      
+        public IActionResult Get (string id) {
+            try {
+                var user = database.Users.First (p => p.UserName == id).UserName;
+                return Ok (user); //Status code = 200 && Dados 
+            } catch (System.Exception) {
+                Response.StatusCode = 404;
+                return new ObjectResult (new { msg = "Id inválido" });
+            }
+        }
+
     }
 }

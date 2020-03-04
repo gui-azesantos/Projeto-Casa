@@ -24,7 +24,7 @@ namespace ApiRest.Controllers {
             return Ok (eventos); //Status code = 200 && Dados 
         }
 
-        [HttpGet ("ListarCapacidadeAsc")]
+        [HttpGet ("capacidade/asc")]
         public IActionResult GetAsc () {
             var local = database.Evento.Include (e => e.CasaDeShow).Where (p => p.CasaDeShow.Status == true).Where (p => p.Status == true).ToList ().OrderBy (p => p.Capacidade);
             return Ok (local);
@@ -32,7 +32,7 @@ namespace ApiRest.Controllers {
 
         }
 
-        [HttpGet ("ListarCapacidadeDesc")]
+        [HttpGet ("capacidade/desc")]
         public IActionResult GetDesc () {
             var local = database.Evento.Include (e => e.CasaDeShow).Where (p => p.CasaDeShow.Status == true).Where (p => p.Status == true).ToList ().OrderByDescending (p => p.Capacidade);
             return Ok (local);
@@ -40,7 +40,7 @@ namespace ApiRest.Controllers {
 
         }
 
-        [HttpGet ("listarDataAsc")]
+        [HttpGet ("data/asc")]
         public IActionResult GetDataAsc () {
             var local = database.Evento.Include (e => e.CasaDeShow).Where (p => p.CasaDeShow.Status == true).Where (p => p.Status == true).ToList ().OrderBy (p => p.Data);
             return Ok (local);
@@ -48,14 +48,14 @@ namespace ApiRest.Controllers {
 
         }
 
-        [HttpGet ("listarDataDesc")]
+        [HttpGet ("data/desc")]
         public IActionResult GetDataDesc () {
             var local = database.Evento.Include (e => e.CasaDeShow).Where (p => p.CasaDeShow.Status == true).Where (p => p.Status == true).ToList ().OrderByDescending (p => p.Data);
             return Ok (local);
             //Status code = 200 && Dados 
         }
 
-        [HttpGet ("listarPrecoAsc")]
+        [HttpGet ("preco/asc")]
         public IActionResult GetPrecoAsc () {
             var local = database.Evento.Include (e => e.CasaDeShow).Where (p => p.CasaDeShow.Status == true).Where (p => p.Status == true).ToList ().OrderBy (p => p.Preco);
             return Ok (local);
@@ -63,20 +63,20 @@ namespace ApiRest.Controllers {
 
         }
 
-        [HttpGet ("listarPrecoDesc")]
+        [HttpGet ("preco/desc")]
         public IActionResult GetPrecoDesc () {
             var local = database.Evento.Include (e => e.CasaDeShow).Where (p => p.CasaDeShow.Status == true).Where (p => p.Status == true).ToList ().OrderByDescending (p => p.Preco);
             return Ok (local);
             //Status code = 200 && Dados 
         }
 
-        [HttpGet ("listarNomeAsc")]
+        [HttpGet ("nome/asc")]
         public IActionResult GetNomeAsc () {
             var local = database.Evento.Include (e => e.CasaDeShow).Where (p => p.CasaDeShow.Status == true).Where (p => p.Status == true).ToList ().OrderBy (p => p.Nome);
             return Ok (local);
         }
 
-        [HttpGet ("listarNomeDesc")]
+        [HttpGet ("nome/desc")]
         public IActionResult GetNomeDesc () {
             var local = database.Evento.Include (e => e.CasaDeShow).Where (p => p.CasaDeShow.Status == true).Where (p => p.Status == true).ToList ().OrderByDescending (p => p.Nome);
             return Ok (local);
@@ -139,21 +139,25 @@ namespace ApiRest.Controllers {
         }
 
         [HttpPatch]
-        public IActionResult Patch ([FromBody] Evento evento) {
-            if (evento.Id > 0) {
+        public IActionResult Patch ([FromBody] EventoTemp ptemp) {
+            if (ptemp.Id > 0) {
 
                 try {
-                    var ptemp = database.Evento.First (p => p.Id == evento.Id);
+                    var evento = database.Evento.First (p => p.Id == ptemp.Id);
                     if (ptemp != null) {
 
                         //Editar 
-                        // Obs: Não é possivel alterar Local do evento
-                        ptemp.Nome = evento.Nome != null ? evento.Nome : ptemp.Nome;
-                        ptemp.Capacidade = evento.Capacidade != 0 ? evento.Capacidade : ptemp.Capacidade;
-                        ptemp.Data = evento.Data != null ? evento.Data : ptemp.Data;
-                        ptemp.Preco = evento.Preco != 0 ? evento.Preco : ptemp.Preco;
-                        ptemp.Estilo = evento.Estilo != null ? evento.Estilo : ptemp.Estilo;
-                        ptemp.Imagem = evento.Imagem != null ? evento.Imagem : ptemp.Imagem;
+                        evento.Nome = ptemp.Nome != null ? ptemp.Nome : evento.Nome;
+                        evento.Capacidade = ptemp.Capacidade != 0 ? ptemp.Capacidade : evento.Capacidade;
+                        evento.Data = ptemp.Data != null ? ptemp.Data : evento.Data;
+                        evento.Preco = ptemp.Preco != 0 ? ptemp.Preco : evento.Preco;
+                        if (ptemp.CasaDeShowID != 0) {
+                            evento.CasaDeShow = database.Local.First (p => p.Id == ptemp.CasaDeShowID);
+                        } else {
+                            evento.CasaDeShow = evento.CasaDeShow;
+                        }
+                        evento.Estilo = ptemp.Estilo != null ? ptemp.Estilo : evento.Estilo;
+                        evento.Imagem = ptemp.Imagem != null ? ptemp.Imagem : evento.Imagem;
                         database.SaveChanges ();
                         return Ok ();
                     }
@@ -202,10 +206,11 @@ namespace ApiRest.Controllers {
             public double Preco { get; set; }
 
             [Required]
+
             public int CasaDeShowID { get; set; }
 
             [Range (0, 8, ErrorMessage = "Estilo inválido.")]
-            public int Estilo { get; set; }
+            public string Estilo { get; set; }
 
             [Required (ErrorMessage = "A URL da imagem é obrigatória.")]
             [MinLength (2, ErrorMessage = "Url curta demais.")]

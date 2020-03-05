@@ -28,9 +28,9 @@ namespace ApiRest.Controllers
 
         [HttpGet ("{id}")]
 
-        public IActionResult Get (string id) {
+        public IActionResult Get (int id) {
             try {
-                var user = database.Users.First (p => p.UserName == id).UserName;
+                var user = database.Usuario.First (p => p.Id == id).Email;
                 return Ok (user); //Status code = 200 && Dados 
             } catch (System.Exception) {
                 Response.StatusCode = 404;

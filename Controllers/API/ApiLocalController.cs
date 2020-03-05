@@ -5,12 +5,14 @@ using System.Linq;
 using System.Net.Http;
 using GerenciamentoEvento.Data;
 using GerenciamentoEvento.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Projeto_Casa.Controllers.API {
 
     [Route ("api/v1/local")]
     [ApiController]
+
     public class ApiLocalController : ControllerBase {
         private readonly ApplicationDbContext database;
 
@@ -69,40 +71,70 @@ namespace Projeto_Casa.Controllers.API {
 
         }
 
+        [Authorize]
         [HttpPost]
+
         public IActionResult Post ([FromBody] LocalTemp lTemp) {
-            Local l = new Local ();
-            l.Nome = lTemp.Nome;
-            l.Endereco = lTemp.Endereco;
-            l.LinkEndereco = lTemp.LinkEndereco;
-            l.Status = true;
+            try {
+                Local l = new Local ();
+                l.Nome = lTemp.Nome;
+                l.Endereco = lTemp.Endereco;
+                l.LinkEndereco = lTemp.LinkEndereco;
+                l.Status = true;
+                database.Local.Add (l);
+                database.SaveChanges ();
 
-            database.Local.Add (l);
-            database.SaveChanges ();
-
-            //Set do Status Code
-            Response.StatusCode = 201;
-            return new ObjectResult (new { msg = "Local criado com sucesso!" });
+                //Set do Status Code
+                Response.StatusCode = 201;
+                return new ObjectResult (new { msg = "Local criado com sucesso!" });
+            } catch {
+                return  BadRequest (new { msg = "Id inválido" });
+            }
         }
 
-        [HttpPut]
-        public IActionResult Put ([FromBody] Local local) {
-            if (local.Id > 0) {
+        [Authorize]
+        [HttpPatch]
+
+        public IActionResult Patch ([FromBody] LocalPatch ltemp) {
+            if (ltemp.Id > 0) {
 
                 try {
-                    var ltemp = database.Local.First (p => p.Id == local.Id);
+                    var local = database.Local.First (p => p.Id == ltemp.Id);
                     if (ltemp != null) {
 
                         //Editar 
-                        ltemp.Nome = local.Nome != null ? local.Nome : local.Nome;
-                        ltemp.Endereco = local.Endereco != null ? local.Endereco : local.Endereco;
-                        ltemp.LinkEndereco = ltemp.LinkEndereco != null ? ltemp.LinkEndereco : ltemp.LinkEndereco;
+
+                        if (ltemp.Nome != null) {
+                            if (ltemp.Nome.Length > 0 && ltemp.Nome.Length < 100) {
+                                local.Nome = ltemp.Nome;
+                            } else {
+                                Response.StatusCode = 404;
+                                return new ObjectResult (new { msg = "Nome  inválido" });
+                            }
+                        }
+
+                        if (ltemp.Endereco != null) {
+                            if (ltemp.Endereco.Length > 0 && ltemp.Endereco.Length < 100) {
+                                local.Endereco = ltemp.Endereco;
+                            } else {
+                                Response.StatusCode = 404;
+                                return new ObjectResult (new { msg = "Endereço  inválido" });
+                            }
+                        }
+                        if (ltemp.Endereco != null) {
+                            if (ltemp.LinkEndereco.Length > 0 && ltemp.LinkEndereco.Length < 1024) {
+                                local.LinkEndereco = ltemp.LinkEndereco;
+                            } else {
+                                Response.StatusCode = 404;
+                                return new ObjectResult (new { msg = "Endereço  inválido" });
+                            }
+                        }
                         database.SaveChanges ();
                         return Ok ();
                     }
                 } catch (System.Exception) {
                     Response.StatusCode = 404;
-                    return new ObjectResult (new { msg = "Evento não encontrado" });
+                    return new ObjectResult (new { msg = "Local não encontrado" });
                 }
 
             } else {
@@ -113,7 +145,9 @@ namespace Projeto_Casa.Controllers.API {
             return new ObjectResult (new { msg = "Id inválido" });
         }
 
+        [Authorize]
         [HttpDelete ("{id}")]
+
         public IActionResult Delete (int id) {
             try {
                 var local = database.Local.First (p => p.Id == id);
@@ -141,6 +175,13 @@ namespace Projeto_Casa.Controllers.API {
             public string LinkEndereco { get; set; }
 
             public bool Status { get; set; }
+        }
+        public class LocalPatch {
+            public int Id { get; set; }
+            public string Nome { get; set; }
+            public string Endereco { get; set; }
+            public string LinkEndereco { get; set; }
+
         }
     }
 

@@ -1209,3 +1209,6 @@ C:\Users\GEDO\Desktop\Visual Studio Code\Projeto-Casa\obj\Debug\netcoreapp3.1\Ge
 C:\Users\GEDO\Desktop\Visual Studio Code\Projeto-Casa\obj\Debug\netcoreapp3.1\GerenciamentoEvento.pdb
 C:\Users\GEDO\Desktop\Visual Studio Code\Projeto-Casa\obj\Debug\netcoreapp3.1\Razor\Views\Local\GetLocal.cshtml.g.cs
 C:\Users\GEDO\Desktop\Visual Studio Code\Projeto-Casa\obj\Debug\netcoreapp3.1\Razor\Views\Eventos\GetEventos.cshtml.g.cs
+C:\Users\GEDO\Desktop\Visual Studio Code\Projeto-Casa\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\GEDO\Desktop\Visual Studio Code\Projeto-Casa\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.Protocols.dll
+C:\Users\GEDO\Desktop\Visual Studio Code\Projeto-Casa\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll

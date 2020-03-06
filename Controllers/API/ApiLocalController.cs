@@ -52,7 +52,7 @@ namespace Projeto_Casa.Controllers.API {
             } catch (Exception) {
 
                 Response.StatusCode = 404;
-                return new ObjectResult (new { msg = "Id inválido" });
+                return new ObjectResult (new { msg = "ID inválido" });
             }
 
         }
@@ -60,13 +60,12 @@ namespace Projeto_Casa.Controllers.API {
         [HttpGet ("nome/" + "{nome}")]
         public IActionResult GetNome (string nome) {
             try {
-
-                var local = database.Local.Where (l => l.Status == true).First (l => l.Nome == nome);
+                var local = database.Local.Where (l => l.Status == true).First (l => l.Nome.ToLower () == nome.ToLower ());
                 return Ok (local);
             } catch (Exception) {
 
                 Response.StatusCode = 404;
-                return new ObjectResult (new { msg = "Nome inválido" });
+                return new ObjectResult (new { msg = "Nome Inválido" });
             }
 
         }
@@ -88,7 +87,7 @@ namespace Projeto_Casa.Controllers.API {
                 Response.StatusCode = 201;
                 return new ObjectResult (new { msg = "Local criado com sucesso!" });
             } catch {
-                return  BadRequest (new { msg = "Id inválido" });
+                return BadRequest (new { msg = "ID Inválido" });
             }
         }
 
@@ -96,53 +95,47 @@ namespace Projeto_Casa.Controllers.API {
         [HttpPatch]
 
         public IActionResult Patch ([FromBody] LocalPatch ltemp) {
-            if (ltemp.Id > 0) {
-
+            if (ltemp.Id >= 0) {
                 try {
                     var local = database.Local.First (p => p.Id == ltemp.Id);
-                    if (ltemp != null) {
-
-                        //Editar 
-
-                        if (ltemp.Nome != null) {
-                            if (ltemp.Nome.Length > 0 && ltemp.Nome.Length < 100) {
-                                local.Nome = ltemp.Nome;
-                            } else {
-                                Response.StatusCode = 404;
-                                return new ObjectResult (new { msg = "Nome  inválido" });
-                            }
+                    //Editar 
+                    if (ltemp.Nome != null) {
+                        if (ltemp.Nome.Length > 0 && ltemp.Nome.Length < 100) {
+                            local.Nome = ltemp.Nome;
+                        } else {
+                            Response.StatusCode = 404;
+                            return new ObjectResult (new { msg = "Nome  inválido" });
                         }
-
-                        if (ltemp.Endereco != null) {
-                            if (ltemp.Endereco.Length > 0 && ltemp.Endereco.Length < 100) {
-                                local.Endereco = ltemp.Endereco;
-                            } else {
-                                Response.StatusCode = 404;
-                                return new ObjectResult (new { msg = "Endereço  inválido" });
-                            }
-                        }
-                        if (ltemp.Endereco != null) {
-                            if (ltemp.LinkEndereco.Length > 0 && ltemp.LinkEndereco.Length < 1024) {
-                                local.LinkEndereco = ltemp.LinkEndereco;
-                            } else {
-                                Response.StatusCode = 404;
-                                return new ObjectResult (new { msg = "Endereço  inválido" });
-                            }
-                        }
-                        database.SaveChanges ();
-                        return Ok ();
                     }
+
+                    if (ltemp.Endereco != null) {
+                        if (ltemp.Endereco.Length > 0 && ltemp.Endereco.Length < 100) {
+                            local.Endereco = ltemp.Endereco;
+                        } else {
+                            Response.StatusCode = 404;
+                            return new ObjectResult (new { msg = "Endereço  inválido" });
+                        }
+                    }
+                    if (ltemp.LinkEndereco != null) {
+                        if (ltemp.LinkEndereco.Length > 0 && ltemp.LinkEndereco.Length < 1024) {
+                            local.LinkEndereco = ltemp.LinkEndereco;
+                        } else {
+                            Response.StatusCode = 404;
+                            return new ObjectResult (new { msg = "Url  inválida" });
+                        }
+                    }
+                    database.SaveChanges ();
+                    return Ok (new { msg = "Local Atualilzado!" } );
+
                 } catch (System.Exception) {
                     Response.StatusCode = 404;
-                    return new ObjectResult (new { msg = "Local não encontrado" });
+                    return new ObjectResult (new { msg = "Requisição Inválida!" });
                 }
 
             } else {
                 Response.StatusCode = 404;
-                return new ObjectResult (new { msg = "Id inválido" });
+                return new ObjectResult (new { msg = "ID inválido" });
             }
-            Response.StatusCode = 404;
-            return new ObjectResult (new { msg = "Id inválido" });
         }
 
         [Authorize]

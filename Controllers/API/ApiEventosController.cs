@@ -92,7 +92,7 @@ namespace ApiRest.Controllers {
             } catch (Exception) {
 
                 Response.StatusCode = 404;
-                return new ObjectResult (new { msg = "Id inválido" });
+                return new ObjectResult (new { msg = "ID Inválido" });
             }
 
         }
@@ -111,7 +111,7 @@ namespace ApiRest.Controllers {
             } catch (Exception) {
 
                 Response.StatusCode = 404;
-                return new ObjectResult (new { msg = "Id inválido" });
+                return new ObjectResult (new { msg = "ID Inválido" });
             }
         }
 
@@ -119,114 +119,116 @@ namespace ApiRest.Controllers {
         [HttpPost]
         public IActionResult Post ([FromBody] EventoTemp eTemp) {
             //Validação
-            try {
-                if (eTemp.CasaDeShowID == 0) {
-                    return new ObjectResult (new { msg = "O local do Evento não existe!" });
-                }
-                Evento e = new Evento ();
-                e.Nome = eTemp.Nome;
-                e.Capacidade = eTemp.Capacidade;
-                e.Data = eTemp.Data;
-                e.Preco = eTemp.Preco;
-                e.CasaDeShow = database.Local.First (c => c.Id == eTemp.CasaDeShowID);
-                e.Estilo = eTemp.Estilo.ToString ();
-                e.Imagem = eTemp.Imagem;
-                e.Status = eTemp.Status;
-                database.Evento.Add (e);
-                database.SaveChanges ();
+            if (eTemp != null) {
+                try {
+                    if (eTemp.CasaDeShowID == 0) {
+                        return new ObjectResult (new { msg = "O Local do Evento não existe!" });
+                    }
+                    Evento e = new Evento ();
+                    e.Nome = eTemp.Nome;
+                    e.Capacidade = eTemp.Capacidade;
+                    e.Data = eTemp.Data;
+                    e.Preco = eTemp.Preco;
+                    e.CasaDeShow = database.Local.First (c => c.Id == eTemp.CasaDeShowID);
+                    e.Estilo = eTemp.Estilo.ToString ();
+                    e.Imagem = eTemp.Imagem;
+                    e.Status = eTemp.Status;
+                    database.Evento.Add (e);
+                    database.SaveChanges ();
 
-                //Set do Status Code
-                Response.StatusCode = 201;
-                return new ObjectResult (new { msg = "Evento criado com sucesso!" });
-            } catch (Exception) {
-                Response.StatusCode = 400;
-                return BadRequest (new { msg = "Verifique se o Id do local está correto" });
+                    //Set do Status Code
+                    Response.StatusCode = 201;
+                    return new ObjectResult (new { msg = "Evento criado com sucesso!" });
+                } catch (Exception) {
+                    Response.StatusCode = 400;
+                    return BadRequest (new { msg = "Verifique se o ID do evento está correto" });
+                }
             }
+            return BadRequest (new { msg = "Verifique se as informações do evento estão corretas" });
         }
 
         [HttpPatch]
         [Authorize]
         public IActionResult Patch ([FromBody] EventoPatch ptemp) {
 
-            if (ptemp.Id > 0) {
+            if (ptemp.Id >= 0) {
 
                 try {
                     var evento = database.Evento.First (p => p.Id == ptemp.Id);
-                    if (ptemp != null) {
-
-                        //Editar 
-                        if (ptemp.Nome != null) {
-                            if (ptemp.Nome.Length > 2 && ptemp.Nome.Length < 150) {
-                                evento.Nome = ptemp.Nome;
-                            } else {
-                                evento.Nome = evento.Nome;
-                                Response.StatusCode = 404;
-                                return new ObjectResult (new { msg = "Nome inválido" });
-                            }
+                    //Editar 
+                    if (ptemp.Nome != null) {
+                        if (ptemp.Nome.Length > 2 && ptemp.Nome.Length < 150) {
+                            evento.Nome = ptemp.Nome;
+                        } else {
+                            evento.Nome = evento.Nome;
+                            Response.StatusCode = 404;
+                            return new ObjectResult (new { msg = "Nome Inválido" });
                         }
-                        if (ptemp.Capacidade != 0) {
-                            if (ptemp.Capacidade > 10 && ptemp.Capacidade < 1000000) {
-                                evento.Capacidade = ptemp.Capacidade;
-                            } else {
-                                evento.Capacidade = evento.Capacidade;
-                                Response.StatusCode = 404;
-                                return new ObjectResult (new { msg = "Capaidade inválida" });
-                            }
+                    }
+                    if (ptemp.Capacidade != 0) {
+                        if (ptemp.Capacidade > 10 && ptemp.Capacidade < 1000000) {
+                            evento.Capacidade = ptemp.Capacidade;
+                        } else {
+                            evento.Capacidade = evento.Capacidade;
+                            Response.StatusCode = 404;
+                            return new ObjectResult (new { msg = "Capaidade Inválida" });
                         }
-
-                        if (ptemp.Preco != 0 && ptemp.Preco > 10 || ptemp.Preco < 1000000) {
+                    }
+                    if (ptemp.Preco != 0) {
+                        if (ptemp.Preco > 10 || ptemp.Preco < 1000000) {
                             evento.Preco = ptemp.Preco;
                         } else {
                             evento.Preco = evento.Preco;
                             Response.StatusCode = 404;
-                            return new ObjectResult (new { msg = "Preço inválida" });
+                            return new ObjectResult (new { msg = "Preço Inválida" });
                         }
+                    }
 
-                        if (ptemp.CasaDeShowID != 0) {
-                            if (database.Local.First (p => p.Id == ptemp.CasaDeShowID) != null) {
-                                evento.CasaDeShow = database.Local.First (p => p.Id == ptemp.CasaDeShowID);
-                            } else {
-                                Response.StatusCode = 404;
-                                return new ObjectResult (new { msg = "Local de inválido" });
-                            }
+                    if (ptemp.CasaDeShowID != 0) {
+                        if (database.Local.First (p => p.Id == ptemp.CasaDeShowID) != null) {
+                            evento.CasaDeShow = database.Local.First (p => p.Id == ptemp.CasaDeShowID);
+                        } else {
+                            Response.StatusCode = 404;
+                            return new ObjectResult (new { msg = "Local de inválido" });
                         }
-                        if (evento.Estilo == ptemp.Estilo.ToString () && ptemp.Preco > 0 || ptemp.Preco < 8) {
+                    }
+                    if (ptemp.Estilo != 0) {
+                        if (evento.Estilo == ptemp.Estilo.ToString () && ptemp.Estilo > 0 || ptemp.Estilo < 8) {
                             evento.Estilo = ptemp.Estilo.ToString ();
                         } else {
                             evento.Estilo = evento.Estilo;
                             Response.StatusCode = 404;
-                            return new ObjectResult (new { msg = "Estilo de inválida" });
+                            return new ObjectResult (new { msg = "Estilo de Inválido" });
                         }
-
-                        if (ptemp.Imagem != null) {
-                            if (ptemp.Nome.Length > 10 && ptemp.Nome.Length < 1024) {
-                                evento.Imagem = ptemp.Imagem;
-                            } else {
-                                evento.Imagem = evento.Imagem;
-                                Response.StatusCode = 404;
-                                return new ObjectResult (new { msg = "Imagem: Url inválida" });
-                            }
-                        }
-
-                        database.SaveChanges ();
-                        return Ok ();
                     }
 
+                    if (ptemp.Imagem != null) {
+                        if (ptemp.Imagem.Length > 10 && ptemp.Imagem.Length < 1024) {
+                            evento.Imagem = ptemp.Imagem;
+                        } else {
+                            evento.Imagem = evento.Imagem;
+                            Response.StatusCode = 404;
+                            return new ObjectResult (new { msg = "Imagem: Url inválida" });
+                        }
+                    }
+
+                    database.SaveChanges ();
+                    return Ok (new { msg = "Evento Atualizado!" });
+
                 } catch (System.Exception) {
-                    Response.StatusCode = 404;
-                    return new ObjectResult (new { msg = "Evento não encontrado" });
+                    Response.StatusCode = 400;
+                    return new ObjectResult (new { msg = "Requisição Inválida" });
                 }
 
             } else {
                 Response.StatusCode = 404;
-                return new ObjectResult (new { msg = "Id inválido" });
+                return new ObjectResult (new { msg = "ID Inválido" });
             }
-            Response.StatusCode = 404;
-            return new ObjectResult (new { msg = "Id inválido" });
+
         }
 
         [HttpDelete ("{id}")]
-           [Authorize]
+        [Authorize]
         public IActionResult Delete (int id) {
             try {
                 var evento = database.Evento.First (p => p.Id == id);
@@ -236,7 +238,7 @@ namespace ApiRest.Controllers {
                 return new ObjectResult (new { msg = "Evento excluido!" });
             } catch (Exception) {
                 Response.StatusCode = 404;
-                return new ObjectResult (new { msg = "Id inválido" });
+                return new ObjectResult (new { msg = "ID inválido" });
             }
         }
 
@@ -272,7 +274,6 @@ namespace ApiRest.Controllers {
         }
         public class EventoPatch {
             public int Id { get; set; }
-
             public string Nome { get; set; }
             public int Capacidade { get; set; }
 

@@ -7,8 +7,7 @@ using GerenciamentoEvento.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 
-namespace ApiRest.Controllers
-{
+namespace ApiRest.Controllers {
     [Route ("api/v1/user")]
     [ApiController]
     public class ApiUserController : ControllerBase {
@@ -19,15 +18,22 @@ namespace ApiRest.Controllers
 
             this.database = database;
         }
-
+        /// <summary>
+        /// Listar usuário
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public IActionResult Get () {
-            var user = database.Usuario.Select (p => p.Email).ToList ();
+            var user = database.Usuario.Select (p => p.Id + " " + p.Email).ToList ();
             return Ok (user); //Status code = 200 && Dados 
         }
 
+        /// <summary>
+        /// Lista usuário por ID
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet ("{id}")]
-
         public IActionResult Get (int id) {
             try {
                 var user = database.Usuario.First (p => p.Id == id).Email;
@@ -38,7 +44,11 @@ namespace ApiRest.Controllers
             }
 
         }
-
+        /// <summary>
+        /// Cadastro de usuário
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
         [HttpPost ("Cadastro")]
         public IActionResult Cadastro ([FromBody] Usuario user) {
             try {
@@ -50,6 +60,11 @@ namespace ApiRest.Controllers
             }
         }
 
+        /// <summary>
+        /// Login
+        /// </summary>
+        /// <param name="credenciais"></param>
+        /// <returns></returns>
         [HttpPost ("Login")]
         public IActionResult Login ([FromBody] Usuario credenciais) {
             try {
@@ -67,10 +82,10 @@ namespace ApiRest.Controllers
                             expires : DateTime.Now.AddHours (1),
                             audience: "Admin",
                             signingCredentials : KeyAcesso
-                           /*  claims : claims */
+                            /*  claims : claims */
                         );
-                     Response.StatusCode = 200;
-                    return new ObjectResult ("Você está Logado! \t" + new JwtSecurityTokenHandler().WriteToken(TokenJwt));
+                        Response.StatusCode = 200;
+                        return new ObjectResult ("Você está Logado! \t" + new JwtSecurityTokenHandler ().WriteToken (TokenJwt));
                     } else {
                         //Não existe nenhum usuário
                         Response.StatusCode = 401;

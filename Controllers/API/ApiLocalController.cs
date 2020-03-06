@@ -20,7 +20,10 @@ namespace Projeto_Casa.Controllers.API {
 
             this.database = database;
         }
-
+        /// <summary>
+        /// Listar Local 
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public IActionResult Get () {
             var local = database.Local.Where (p => p.Status == true).ToList ();
@@ -28,6 +31,10 @@ namespace Projeto_Casa.Controllers.API {
             //Status code = 200 && Dados 
         }
 
+        /// <summary>
+        /// Listar local por nome ascendente
+        /// </summary>
+        /// <returns></returns>
         [HttpGet ("asc")]
         public IActionResult GetAsc () {
             var local = database.Local.Where (p => p.Status == true).ToList ().OrderBy (p => p.Nome);
@@ -35,7 +42,10 @@ namespace Projeto_Casa.Controllers.API {
             //Status code = 200 && Dados 
 
         }
-
+        /// <summary>
+        /// Listar Local por nome decrescente
+        /// </summary>
+        /// <returns></returns>
         [HttpGet ("desc")]
         public IActionResult GetDesc () {
             var local = database.Local.Where (p => p.Status == true).ToList ().OrderByDescending (p => p.Nome);
@@ -43,7 +53,11 @@ namespace Projeto_Casa.Controllers.API {
             //Status code = 200 && Dados 
 
         }
-
+        /// <summary>
+        /// Listar Local por ID 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet ("{id}")]
         public IActionResult GetId (int id) {
             try {
@@ -56,7 +70,11 @@ namespace Projeto_Casa.Controllers.API {
             }
 
         }
-
+        /// <summary>
+        /// Listar Local por Nome
+        /// </summary>
+        /// <param name="nome"></param>
+        /// <returns></returns>
         [HttpGet ("nome/" + "{nome}")]
         public IActionResult GetNome (string nome) {
             try {
@@ -70,9 +88,13 @@ namespace Projeto_Casa.Controllers.API {
 
         }
 
+        /// <summary>
+        /// Criar Local (Necessita Autorização)
+        /// </summary>
+        /// <param name="lTemp"></param>
+        /// <returns></returns>
         [Authorize]
         [HttpPost]
-
         public IActionResult Post ([FromBody] LocalTemp lTemp) {
             try {
                 Local l = new Local ();
@@ -91,10 +113,15 @@ namespace Projeto_Casa.Controllers.API {
             }
         }
 
+        /// <summary>
+        /// Atualizar local (Necessita Autorização)
+        /// </summary>
+        /// <param name="ltemp"></param>
+        /// <returns></returns>
         [Authorize]
         [HttpPatch]
-
         public IActionResult Patch ([FromBody] LocalPatch ltemp) {
+
             if (ltemp.Id >= 0) {
                 try {
                     var local = database.Local.First (p => p.Id == ltemp.Id);
@@ -125,7 +152,7 @@ namespace Projeto_Casa.Controllers.API {
                         }
                     }
                     database.SaveChanges ();
-                    return Ok (new { msg = "Local Atualilzado!" } );
+                    return Ok (new { msg = "Local Atualilzado!" });
 
                 } catch (System.Exception) {
                     Response.StatusCode = 404;
@@ -138,9 +165,13 @@ namespace Projeto_Casa.Controllers.API {
             }
         }
 
+        /// <summary>
+        /// Deletar Local (Necessita Autorização)
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>   
         [Authorize]
         [HttpDelete ("{id}")]
-
         public IActionResult Delete (int id) {
             try {
                 var local = database.Local.First (p => p.Id == id);

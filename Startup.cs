@@ -1,3 +1,6 @@
+using System;
+using System.IO;
+using System.Reflection;
 using System.Text;
 using GerenciamentoEvento.Data;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -49,6 +52,9 @@ namespace GerenciamentoEvento {
             //Swagger
             services.AddSwaggerGen (config => {
                 config.SwaggerDoc ("v1", new Microsoft.OpenApi.Models.OpenApiInfo { Title = "API Eventos.com", Version = "v1" });
+                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlPath = Path.Combine (AppContext.BaseDirectory, xmlFile);
+                config.IncludeXmlComments (xmlPath);
             });
         }
 
@@ -79,6 +85,7 @@ namespace GerenciamentoEvento {
             }); //Gerar um arquivo JSON - Swagger.json
             app.UseSwaggerUI (config => { //View HTML do Swagger
                 config.SwaggerEndpoint ("/eventos.com/v1/swagger.json", "v1 docs");
+                
             });
         }
     }

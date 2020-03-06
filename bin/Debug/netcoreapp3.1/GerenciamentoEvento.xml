@@ -1,0 +1,183 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>GerenciamentoEvento</name>
+    </assembly>
+    <members>
+        <member name="M:ApiRest.Controllers.ApiEventosController.Get">
+            <summary>
+            Listar Eventos
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ApiRest.Controllers.ApiEventosController.GetAsc">
+            <summary>
+            Listar eventos por capacidade ascendente
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ApiRest.Controllers.ApiEventosController.GetDesc">
+            <summary>
+            Listar eventos por capacidade descendente
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ApiRest.Controllers.ApiEventosController.GetDataAsc">
+            <summary>
+            Listar eventos por data ascendente
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ApiRest.Controllers.ApiEventosController.GetDataDesc">
+            <summary>
+            Listar eventos por data descendente
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ApiRest.Controllers.ApiEventosController.GetPrecoAsc">
+            <summary>
+            Listar eventos por preço ascendente
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ApiRest.Controllers.ApiEventosController.GetPrecoDesc">
+            <summary>
+            Listar eventos por preço descendente
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ApiRest.Controllers.ApiEventosController.GetNomeAsc">
+            <summary>
+            Listar eventos por nome ascendente
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ApiRest.Controllers.ApiEventosController.GetNomeDesc">
+            <summary>
+            Listaer eventos por nome descendente
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ApiRest.Controllers.ApiEventosController.Get(System.Int32)">
+            <summary>
+            Listar eventos por ID
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ApiRest.Controllers.ApiEventosController.GetUser">
+            <summary>
+            Listar vendas 
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ApiRest.Controllers.ApiEventosController.GetUser(System.Int32)">
+            <summary>
+            Listar vendas por ID
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ApiRest.Controllers.ApiEventosController.Post(ApiRest.Controllers.ApiEventosController.EventoTemp)">
+            <summary>
+            Criar eventos (Necessita Autorização)
+            </summary>
+            <param name="eTemp"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ApiRest.Controllers.ApiEventosController.Patch(ApiRest.Controllers.ApiEventosController.EventoPatch)">
+            <summary>
+            Atualizar evento (Necessita Autorização)
+            </summary>
+            <param name="ptemp"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ApiRest.Controllers.ApiEventosController.Delete(System.Int32)">
+            <summary>
+            Deletar evento (Necessita Autorização)
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ApiRest.Controllers.ApiUserController.Get">
+            <summary>
+            Listar usuário
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ApiRest.Controllers.ApiUserController.Get(System.Int32)">
+            <summary>
+            Lista usuário por ID
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ApiRest.Controllers.ApiUserController.Cadastro(GerenciamentoEvento.Models.Usuario)">
+            <summary>
+            Cadastro de usuário
+            </summary>
+            <param name="user"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ApiRest.Controllers.ApiUserController.Login(GerenciamentoEvento.Models.Usuario)">
+            <summary>
+            Login
+            </summary>
+            <param name="credenciais"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Projeto_Casa.Controllers.API.ApiLocalController.Get">
+            <summary>
+            Listar Local 
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Projeto_Casa.Controllers.API.ApiLocalController.GetAsc">
+            <summary>
+            Listar local por nome ascendente
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Projeto_Casa.Controllers.API.ApiLocalController.GetDesc">
+            <summary>
+            Listar Local por nome decrescente
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Projeto_Casa.Controllers.API.ApiLocalController.GetId(System.Int32)">
+            <summary>
+            Listar Local por ID 
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Projeto_Casa.Controllers.API.ApiLocalController.GetNome(System.String)">
+            <summary>
+            Listar Local por Nome
+            </summary>
+            <param name="nome"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Projeto_Casa.Controllers.API.ApiLocalController.Post(Projeto_Casa.Controllers.API.ApiLocalController.LocalTemp)">
+            <summary>
+            Criar Local (Necessita Autorização)
+            </summary>
+            <param name="lTemp"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Projeto_Casa.Controllers.API.ApiLocalController.Patch(Projeto_Casa.Controllers.API.ApiLocalController.LocalPatch)">
+            <summary>
+            Atualizar local (Necessita Autorização)
+            </summary>
+            <param name="ltemp"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Projeto_Casa.Controllers.API.ApiLocalController.Delete(System.Int32)">
+            <summary>
+            Deletar Local (Necessita Autorização)
+            </summary>
+            <param name="id"></param>
+            <returns></returns>   
+        </member>
+    </members>
+</doc>

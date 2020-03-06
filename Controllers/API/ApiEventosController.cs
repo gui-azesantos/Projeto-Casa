@@ -19,13 +19,19 @@ namespace ApiRest.Controllers {
             this.database = database;
         }
 
+        /// <summary>
+        /// Listar Eventos
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
-
         public IActionResult Get () {
             var eventos = database.Evento.Include (e => e.CasaDeShow).Where (p => p.CasaDeShow.Status == true).Where (p => p.Status == true).Where (p => p.CasaDeShow.Status == true).ToList ();
             return Ok (eventos); //Status code = 200 && Dados 
         }
-
+        /// <summary>
+        /// Listar eventos por capacidade ascendente
+        /// </summary>
+        /// <returns></returns>
         [HttpGet ("capacidade/asc")]
         public IActionResult GetAsc () {
             var local = database.Evento.Include (e => e.CasaDeShow).Where (p => p.CasaDeShow.Status == true).Where (p => p.Status == true).ToList ().OrderBy (p => p.Capacidade);
@@ -33,7 +39,10 @@ namespace ApiRest.Controllers {
             //Status code = 200 && Dados 
 
         }
-
+        /// <summary>
+        /// Listar eventos por capacidade descendente
+        /// </summary>
+        /// <returns></returns>
         [HttpGet ("capacidade/desc")]
         public IActionResult GetDesc () {
             var local = database.Evento.Include (e => e.CasaDeShow).Where (p => p.CasaDeShow.Status == true).Where (p => p.Status == true).ToList ().OrderByDescending (p => p.Capacidade);
@@ -41,7 +50,10 @@ namespace ApiRest.Controllers {
             //Status code = 200 && Dados 
 
         }
-
+        /// <summary>
+        /// Listar eventos por data ascendente
+        /// </summary>
+        /// <returns></returns>
         [HttpGet ("data/asc")]
         public IActionResult GetDataAsc () {
             var local = database.Evento.Include (e => e.CasaDeShow).Where (p => p.CasaDeShow.Status == true).Where (p => p.Status == true).ToList ().OrderBy (p => p.Data);
@@ -49,14 +61,20 @@ namespace ApiRest.Controllers {
             //Status code = 200 && Dados 
 
         }
-
+        /// <summary>
+        /// Listar eventos por data descendente
+        /// </summary>
+        /// <returns></returns>
         [HttpGet ("data/desc")]
         public IActionResult GetDataDesc () {
             var local = database.Evento.Include (e => e.CasaDeShow).Where (p => p.CasaDeShow.Status == true).Where (p => p.Status == true).ToList ().OrderByDescending (p => p.Data);
             return Ok (local);
             //Status code = 200 && Dados 
         }
-
+        /// <summary>
+        /// Listar eventos por preço ascendente
+        /// </summary>
+        /// <returns></returns>
         [HttpGet ("preco/asc")]
         public IActionResult GetPrecoAsc () {
             var local = database.Evento.Include (e => e.CasaDeShow).Where (p => p.CasaDeShow.Status == true).Where (p => p.Status == true).ToList ().OrderBy (p => p.Preco);
@@ -65,25 +83,39 @@ namespace ApiRest.Controllers {
 
         }
 
+        /// <summary>
+        /// Listar eventos por preço descendente
+        /// </summary>
+        /// <returns></returns>
         [HttpGet ("preco/desc")]
         public IActionResult GetPrecoDesc () {
             var local = database.Evento.Include (e => e.CasaDeShow).Where (p => p.CasaDeShow.Status == true).Where (p => p.Status == true).ToList ().OrderByDescending (p => p.Preco);
             return Ok (local);
             //Status code = 200 && Dados 
         }
-
+        /// <summary>
+        /// Listar eventos por nome ascendente
+        /// </summary>
+        /// <returns></returns>
         [HttpGet ("nome/asc")]
         public IActionResult GetNomeAsc () {
             var local = database.Evento.Include (e => e.CasaDeShow).Where (p => p.CasaDeShow.Status == true).Where (p => p.Status == true).ToList ().OrderBy (p => p.Nome);
             return Ok (local);
         }
-
+        /// <summary>
+        /// Listaer eventos por nome descendente
+        /// </summary>
+        /// <returns></returns>
         [HttpGet ("nome/desc")]
         public IActionResult GetNomeDesc () {
             var local = database.Evento.Include (e => e.CasaDeShow).Where (p => p.CasaDeShow.Status == true).Where (p => p.Status == true).ToList ().OrderByDescending (p => p.Nome);
             return Ok (local);
         }
-
+        /// <summary>
+        /// Listar eventos por ID
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet ("{id}")]
         public IActionResult Get (int id) {
             try {
@@ -96,12 +128,21 @@ namespace ApiRest.Controllers {
             }
 
         }
+        /// <summary>
+        /// Listar vendas 
+        /// </summary>
+        /// <returns></returns>
 
         [HttpGet ("vendas")]
         public IActionResult GetUser () {
             var local = database.Venda.Include (e => e.CasaDeShow).ToList ().OrderByDescending (p => p.Nome);
             return Ok (local);
         }
+        /// <summary>
+        /// Listar vendas por ID
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
 
         [HttpGet ("vendas/" + "{id}")]
         public IActionResult GetUser (int id) {
@@ -114,7 +155,11 @@ namespace ApiRest.Controllers {
                 return new ObjectResult (new { msg = "ID Inválido" });
             }
         }
-
+        /// <summary>
+        /// Criar eventos (Necessita Autorização)
+        /// </summary>
+        /// <param name="eTemp"></param>
+        /// <returns></returns>
         [Authorize]
         [HttpPost]
         public IActionResult Post ([FromBody] EventoTemp eTemp) {
@@ -146,7 +191,11 @@ namespace ApiRest.Controllers {
             }
             return BadRequest (new { msg = "Verifique se as informações do evento estão corretas" });
         }
-
+        /// <summary>
+        /// Atualizar evento (Necessita Autorização)
+        /// </summary>
+        /// <param name="ptemp"></param>
+        /// <returns></returns>
         [HttpPatch]
         [Authorize]
         public IActionResult Patch ([FromBody] EventoPatch ptemp) {
@@ -226,7 +275,11 @@ namespace ApiRest.Controllers {
             }
 
         }
-
+        /// <summary>
+        /// Deletar evento (Necessita Autorização)
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpDelete ("{id}")]
         [Authorize]
         public IActionResult Delete (int id) {

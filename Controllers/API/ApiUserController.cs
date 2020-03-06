@@ -10,11 +10,11 @@ using Microsoft.IdentityModel.Tokens;
 namespace ApiRest.Controllers {
     [Route ("api/v1/user")]
     [ApiController]
-    public class ApiUserController : ControllerBase {
+    public class UsuarioController : ControllerBase {
 
         private readonly ApplicationDbContext database;
 
-        public ApiUserController (ApplicationDbContext database) {
+        public UsuarioController (ApplicationDbContext database) {
 
             this.database = database;
         }

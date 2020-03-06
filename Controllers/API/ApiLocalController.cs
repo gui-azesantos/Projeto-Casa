@@ -13,10 +13,10 @@ namespace Projeto_Casa.Controllers.API {
     [Route ("api/v1/local")]
     [ApiController]
 
-    public class ApiLocalController : ControllerBase {
+    public class LocalController : ControllerBase {
         private readonly ApplicationDbContext database;
 
-        public ApiLocalController (ApplicationDbContext database) {
+        public LocalController (ApplicationDbContext database) {
 
             this.database = database;
         }

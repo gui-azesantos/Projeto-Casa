@@ -10,11 +10,11 @@ using Microsoft.EntityFrameworkCore;
 namespace ApiRest.Controllers {
     [Route ("api/v1/eventos")]
     [ApiController]
-    public class ApiEventosController : ControllerBase {
+    public class EventosController : ControllerBase {
 
         private readonly ApplicationDbContext database;
 
-        public ApiEventosController (ApplicationDbContext database) {
+        public EventosController (ApplicationDbContext database) {
 
             this.database = database;
         }
@@ -128,33 +128,7 @@ namespace ApiRest.Controllers {
             }
 
         }
-        /// <summary>
-        /// Listar vendas 
-        /// </summary>
-        /// <returns></returns>
 
-        [HttpGet ("vendas")]
-        public IActionResult GetUser () {
-            var local = database.Venda.Include (e => e.CasaDeShow).ToList ().OrderByDescending (p => p.Nome);
-            return Ok (local);
-        }
-        /// <summary>
-        /// Listar vendas por ID
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-
-        [HttpGet ("vendas/" + "{id}")]
-        public IActionResult GetUser (int id) {
-            try {
-                Venda venda = database.Venda.Include (e => e.CasaDeShow).First (p => p.Id == id);
-                return Ok (venda);
-            } catch (Exception) {
-
-                Response.StatusCode = 404;
-                return new ObjectResult (new { msg = "ID Inválido" });
-            }
-        }
         /// <summary>
         /// Criar eventos (Necessita Autorização)
         /// </summary>
